@@ -7,6 +7,7 @@ let galleryImages = [];
 document.addEventListener('DOMContentLoaded', () => {
     console.log('VibeFlow landing page loaded successfully!');
     initLightbox();
+    initGalleryFilters();
 });
 
 // Lightbox functionality
@@ -99,4 +100,46 @@ function updateLightboxImage() {
     // Update counter
     currentCounter.textContent = currentImageIndex + 1;
     totalCounter.textContent = galleryImages.length;
+}
+
+// Gallery filters functionality
+function initGalleryFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Filter gallery items with animation
+            galleryItems.forEach((item, index) => {
+                const category = item.getAttribute('data-category');
+                
+                if (filter === 'all' || category === filter) {
+                    // Show item with delay for stagger effect
+                    setTimeout(() => {
+                        item.classList.remove('hidden');
+                        item.style.animation = 'fadeIn 0.5s ease';
+                    }, index * 50);
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            // Update gallery images array for lightbox
+            updateGalleryImages();
+        });
+    });
+}
+
+function updateGalleryImages() {
+    const visibleItems = document.querySelectorAll('.gallery-item:not(.hidden)');
+    galleryImages = Array.from(visibleItems).map(item => ({
+        src: item.querySelector('img').src,
+        alt: item.querySelector('img').alt
+    }));
 }
