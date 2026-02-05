@@ -89,6 +89,59 @@
             </div>
         </section>
 
+        <!-- Product Gallery -->
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <h2 class="section-title">Product Gallery</h2>
+                
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="ui">UI</button>
+                    <button class="filter-btn" data-filter="api">API</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                </div>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-category="ui">
+                        <img src="https://via.placeholder.com/400x300/6366f1/ffffff?text=Dashboard+UI" alt="Dashboard Interface" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">UI</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="api">
+                        <img src="https://via.placeholder.com/400x300/8b5cf6/ffffff?text=API+Integration" alt="API Integration" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">API</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="mobile">
+                        <img src="https://via.placeholder.com/400x300/ec4899/ffffff?text=Mobile+App" alt="Mobile Application" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">Mobile</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="ui">
+                        <img src="https://via.placeholder.com/400x300/10b981/ffffff?text=Analytics+UI" alt="Analytics Dashboard" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">UI</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="api">
+                        <img src="https://via.placeholder.com/400x300/f59e0b/ffffff?text=REST+API" alt="REST API Documentation" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">API</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="mobile">
+                        <img src="https://via.placeholder.com/400x300/3b82f6/ffffff?text=Mobile+Design" alt="Mobile Design System" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="gallery-category">Mobile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimonials Section -->
         <section id="testimonials" class="testimonials">
             <div class="container">
@@ -184,6 +237,19 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="Gallery image">
+            <div class="lightbox-counter">
+                <span id="currentImage">1</span> / <span id="totalImages">6</span>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
