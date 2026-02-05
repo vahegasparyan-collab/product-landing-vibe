@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStickyHeader();
     initActiveNavigation();
     initModal();
+    initFormValidation();
 });
 
 // Sticky header with shadow on scroll
@@ -113,4 +114,84 @@ function clearErrors() {
     document.querySelectorAll('.form-input').forEach(input => {
         input.classList.remove('error');
     });
+}
+
+// Form validation
+function initFormValidation() {
+    const form = document.getElementById('ctaForm');
+    const nameInput = document.getElementById('userName');
+    const emailInput = document.getElementById('userEmail');
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Clear previous errors
+        clearErrors();
+        
+        let isValid = true;
+        
+        // Validate name
+        const name = nameInput.value.trim();
+        if (name === '') {
+            showError('nameError', 'Name is required');
+            nameInput.classList.add('error');
+            isValid = false;
+        } else if (name.length < 2) {
+            showError('nameError', 'Name must be at least 2 characters');
+            nameInput.classList.add('error');
+            isValid = false;
+        }
+        
+        // Validate email
+        const email = emailInput.value.trim();
+        if (email === '') {
+            showError('emailError', 'Email is required');
+            emailInput.classList.add('error');
+            isValid = false;
+        } else if (!isValidEmail(email)) {
+            showError('emailError', 'Please enter a valid email address');
+            emailInput.classList.add('error');
+            isValid = false;
+        }
+        
+        // If valid, submit form (in real app, this would send data to server)
+        if (isValid) {
+            console.log('Form submitted:', { name, email });
+            alert('Thank you for signing up! We\'ll be in touch soon.');
+            closeModal();
+        }
+    });
+    
+    // Real-time validation on blur
+    nameInput.addEventListener('blur', () => {
+        const name = nameInput.value.trim();
+        if (name !== '' && name.length < 2) {
+            showError('nameError', 'Name must be at least 2 characters');
+            nameInput.classList.add('error');
+        } else if (name !== '') {
+            document.getElementById('nameError').textContent = '';
+            nameInput.classList.remove('error');
+        }
+    });
+    
+    emailInput.addEventListener('blur', () => {
+        const email = emailInput.value.trim();
+        if (email !== '' && !isValidEmail(email)) {
+            showError('emailError', 'Please enter a valid email address');
+            emailInput.classList.add('error');
+        } else if (email !== '') {
+            document.getElementById('emailError').textContent = '';
+            emailInput.classList.remove('error');
+        }
+    });
+}
+
+function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = message;
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
