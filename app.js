@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initStickyHeader();
     initActiveNavigation();
+    initModal();
 });
 
 // Sticky header with shadow on scroll
@@ -50,5 +51,66 @@ function initActiveNavigation() {
     
     sections.forEach(section => {
         observer.observe(section);
+    });
+}
+
+// Modal functionality
+function initModal() {
+    const modal = document.getElementById('ctaModal');
+    const ctaButtons = document.querySelectorAll('.btn-primary');
+    const closeButton = document.querySelector('.modal-close');
+    
+    // Open modal on CTA button click
+    ctaButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Only open modal if it's not a form submit button
+            if (e.target.type !== 'submit') {
+                e.preventDefault();
+                openModal();
+            }
+        });
+    });
+    
+    // Close modal on close button click
+    closeButton.addEventListener('click', closeModal);
+    
+    // Close modal on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+function openModal() {
+    const modal = document.getElementById('ctaModal');
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+function closeModal() {
+    const modal = document.getElementById('ctaModal');
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    
+    // Clear form
+    const form = document.getElementById('ctaForm');
+    form.reset();
+    clearErrors();
+}
+
+function clearErrors() {
+    document.querySelectorAll('.form-error').forEach(error => {
+        error.textContent = '';
+    });
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.classList.remove('error');
     });
 }
